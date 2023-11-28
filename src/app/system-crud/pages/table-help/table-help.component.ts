@@ -12,6 +12,7 @@ export class TableHelpComponent {
 
   // properties
   public dataForTable!: Observable<any>
+  public isLoading: boolean = false
 
   constructor(
     private firestore: Firestore,
@@ -21,6 +22,9 @@ export class TableHelpComponent {
 
 
   public getDataForTable(): void {
+
+    this.isLoading = true;
+
     // * get reference to the collection users in firestore
     const collectionInstance = collection(this.firestore, 'users')
 
@@ -30,8 +34,12 @@ export class TableHelpComponent {
       console.log(value)
     })
 
-    // * assing the collection data to the property
-    this.dataForTable = collectionData( collectionInstance, {idField: 'id'} )
+    setTimeout(()=>{
+      // * assing the collection data to the property
+      this.dataForTable = collectionData( collectionInstance, {idField: 'id'} )
+      this.isLoading = false
+    },1500)
+
   }
 
 

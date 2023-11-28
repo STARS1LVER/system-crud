@@ -8,6 +8,7 @@ import { SystemCrudRoutingModule } from './system-crud-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HelpFormComponent } from './components/help-form/help-form.component';
 import { TableHelpComponent } from './pages/table-help/table-help.component';
+import { SpinnerLoadingComponent } from './components/spinner-loading/spinner-loading.component';
 
 
 
@@ -17,13 +18,15 @@ import { TableHelpComponent } from './pages/table-help/table-help.component';
     HomeHelpComponent,
     RegisterHelpComponent,
     LayoutPageComponent,
-    TableHelpComponent
+    TableHelpComponent,
   ],
   imports: [
     CommonModule,
     SystemCrudRoutingModule,
     ReactiveFormsModule,
-    HelpFormComponent
+    HelpFormComponent,
+    SpinnerLoadingComponent
+
   ]
 })
 export class SystemCrudModule { }

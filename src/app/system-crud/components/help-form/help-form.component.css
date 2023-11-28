@@ -1,7 +1,7 @@
 
 /* styles for ngclass */
 .invalid{
-  @apply text-red-500 border-red-500 placeholder-red-500 
+  @apply text-red-500 border-red-500 placeholder-red-500
 
 }
 

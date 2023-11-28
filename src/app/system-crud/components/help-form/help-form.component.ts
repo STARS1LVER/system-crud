@@ -66,6 +66,7 @@ export class HelpFormComponent implements OnInit {
 
     this.initForm()
 
+    // For id
     this.activatedRoute.params
     .pipe(
       tap(({id}) => this.dataId = id),
