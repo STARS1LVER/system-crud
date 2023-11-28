@@ -6,6 +6,7 @@ import { RegisterHelpComponent } from './pages/register-help/register-help.compo
 import { LayoutPageComponent } from './layout/layout-page/layout-page.component';
 import { SystemCrudRoutingModule } from './system-crud-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HelpFormComponent } from './components/help-form/help-form.component';
 
 
 
@@ -19,7 +20,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     SystemCrudRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HelpFormComponent
   ]
 })
 export class SystemCrudModule { }

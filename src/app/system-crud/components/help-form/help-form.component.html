@@ -1,32 +1,45 @@
-<form class="form-system">
-  <p class="title-system">Register</p>
-  <p class="message-system">Signup now and get full access to our app.</p>
+<form class="form-system" [formGroup]="helpForm"  (ngSubmit)="onSubmit()" >
+  <p class="title-system"> {{title}} </p>
+  <p class="message-system"> {{ paragraph | titlecase }} </p>
 
   <div class="flex-system">
     <label>
-      <input required="" placeholder="" type="text" class="input-system" />
+      <input formControlName="name" required="" placeholder="" [ngClass]="{'invalid': hasError('name')}" type="text" class="input-system"  />
       <span>Firstname</span>
-    </label>
-
-    <label>
-      <input required="" placeholder="" type="text" class="input-system" />
-      <span>Lastname</span>
+      <app-error-message [control]="helpForm.get('name')!" ></app-error-message>
     </label>
   </div>
 
   <label>
-    <input required="" placeholder="" type="email" class="input-system" />
+    <input formControlName="email" required="" placeholder="" [ngClass]="{'invalid': hasError('email')}" type="email" class="input-system"  />
     <span>Email</span>
   </label>
+  <app-error-message [control]="helpForm.get('email')!" ></app-error-message>
 
   <label>
-    <input required="" placeholder="" type="password" class="input-system" />
-    <span>Password</span>
+    <input formControlName="cellphone" required="" placeholder="" [ngClass]="{'invalid': hasError('cellphone')}" type="text" class="input-system"  />
+    <span>Cellphone</span>
   </label>
+  <app-error-message [control]="helpForm.get('cellphone')!" ></app-error-message>
+
   <label>
-    <input required="" placeholder="" type="password" class="input-system" />
-    <span>Confirm password</span>
+    <input formControlName="help" required="" placeholder="" [ngClass]="{'invalid': hasError('help')}" class="input-system" type="text"  />
+    <span>Help</span>
   </label>
+  <app-error-message [control]="helpForm.get('help')!" ></app-error-message>
+
+
+  <label>
+    <input formControlName="summary" required="" placeholder=""  [ngClass]="{'invalid': hasError('summary')}" type="text" class="input-system" />
+    <span>Summary</span>
+  </label>
+  <app-error-message [control]="helpForm.get('summary')!" ></app-error-message>
+
+
   <button class="submit-system">Submit</button>
-  <p class="signin">Already have an acount ? <a href="#">Signin</a></p>
+
+  <div *ngIf="action === 'edit' ">
+    <button class="delete-system"> Eliminar </button>
+  </div>
+
 </form>

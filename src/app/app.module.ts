@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
@@ -13,6 +13,7 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 
 // * Modules
 import { AppRoutingModule } from './app-routing.module';
+import { initFlowbite } from 'flowbite';
 
 @NgModule({
   declarations: [
@@ -29,4 +30,10 @@ import { AppRoutingModule } from './app-routing.module';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule implements OnInit {
+
+
+  ngOnInit(): void {
+    initFlowbite();
+  }
+}

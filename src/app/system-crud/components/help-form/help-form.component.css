@@ -1,8 +1,16 @@
+
+/* styles for ngclass */
+.invalid{
+  @apply text-red-500 border-red-500 placeholder-red-500
+
+}
+
+
 .form-system {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-width: 350px;
+  min-width: 350px;
   background-color: #fff;
   padding: 20px;
   border-radius: 20px;
@@ -113,6 +121,18 @@
   transform: .3s ease;
 }
 
+.delete-system{
+  border: none;
+  outline: none;
+  background-color: rgb(216, 43, 31);
+  padding: 10px;
+  width: 310px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  transform: .3s ease;
+}
+
 .submit-system:hover {
   background-color: rgb(56, 90, 194);
 }
@@ -128,3 +148,5 @@
     opacity: 0;
   }
 }
+
+
