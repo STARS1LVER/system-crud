@@ -74,9 +74,9 @@ export class HelpFormComponent implements OnInit {
     const {name, email, cellphone, help, summary} = this.helpForm.value
     console.log(`${name}, ${email}, ${cellphone}, ${help}, ${summary}`)
 
-    // this.action === actionType.edit.action
-        // todo
-        //todo
+    this.action === actionType.edit.action
+      ? console.log('editar')
+      : this.systemService.addDataTabla(this.helpForm.value)
   }
 
   public hasError( field: string  ) : boolean{
