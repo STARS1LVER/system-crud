@@ -39,7 +39,7 @@
   <button class="submit-system">Submit</button>
 
   <div *ngIf="action === 'edit' ">
-    <button class="delete-system"> Eliminar </button>
+    <button (click)="deleteDataForTable()" class="delete-system"> Eliminar </button>
   </div>
 
 </form>

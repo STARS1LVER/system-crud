@@ -2,8 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SystemCrudService } from '../../services/system-crud.service';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
+import { switchMap, tap } from 'rxjs';
 
 // ! This allows us to have greater control when receving data from the parent
 const actionType = {
@@ -14,7 +15,7 @@ const actionType = {
   },
   register: {
     action: 'register',
-    title: 'Register',
+    title: 'Register Your Help',
     paragraph: 'Register your support.'
   }
 } as const
@@ -38,10 +39,12 @@ export class HelpFormComponent implements OnInit {
   public helpForm!: FormGroup;
   public title!: string;
   public paragraph!: string;
+  public dataId!: string
   //
   private readonly emailPattern = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private systemService: SystemCrudService
   ){}
@@ -49,17 +52,27 @@ export class HelpFormComponent implements OnInit {
 
   ngOnInit(): void {
 
+    // For title
     this.title =
       this.action === actionType.edit.action
         ? actionType.edit.title
         : actionType.register.title
 
+    //  For description
     this.paragraph =
       this.action === actionType.edit.action
         ? actionType.edit.paragraph
         : actionType.register.paragraph
 
     this.initForm()
+
+    this.activatedRoute.params
+    .pipe(
+      tap(({id}) => this.dataId = id),
+      switchMap(({id}) => this.systemService.getDataForTable(id))
+    ).subscribe( register => {
+      this.helpForm.reset(register)
+    })
 
   }
 
@@ -75,7 +88,7 @@ export class HelpFormComponent implements OnInit {
     console.log(`${name}, ${email}, ${cellphone}, ${help}, ${summary}`)
 
     this.action === actionType.edit.action
-      ? console.log('editar')
+      ? this.systemService.updateDataHelpForTable(this.dataId, this.helpForm.value)
       : this.systemService.addDataTabla(this.helpForm.value)
   }
 
@@ -94,6 +107,10 @@ export class HelpFormComponent implements OnInit {
       help: ['', [Validators.required]],
       summary: ['', [Validators.required]],
     })
+  }
+
+  public deleteDataForTable(): void {
+    this.systemService.deleteDataForTable(this.dataId)
   }
 
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, addDoc, collection, doc, getDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, deleteDoc, doc, getDoc, updateDoc } from '@angular/fire/firestore';
 import { Help } from '../interfaces/help.interface';
 import { Route, Router, RouterEvent } from '@angular/router';
 
@@ -40,7 +40,7 @@ export class SystemCrudService {
         console.log('document ')
         return null
       }
-      
+
       if(docSnap.exists()){
         console.log('Document Data', docSnap.data())
         return {id: docSnap.id, ...docSnap.data()}
@@ -53,6 +53,35 @@ export class SystemCrudService {
     } catch (error) {
       console.log('Has a error')
       return null
+    }
+  }
+
+  public async updateDataHelpForTable(id: string, help: any): Promise<void> {
+
+    try {
+      //  get reference to the specific document in the collection 'users'
+      const docInstance = doc(this.firestore, 'users', id)
+      //we call the method that will update us to the table
+      await updateDoc(docInstance, help)
+      console.log('data update')
+      this.router.navigate(['/system/table'])
+
+    } catch (error) {
+      console.log('Has a error', error)
+    }
+
+  }
+
+  public async deleteDataForTable(id: string){
+    try {
+      //  get reference to the specific document in the collection 'users'
+      const docInstance = doc(this.firestore, 'users',id)
+      //we call the method that will delete us to the table
+      await deleteDoc(docInstance)
+      this.router.navigate(['/system/table'])
+
+    } catch (error) {
+      console.log('has a error', error)
     }
   }
 
